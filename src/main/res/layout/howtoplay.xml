@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/breakwallsrc">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게임 방법"
+        android:textColor="#F6ECCC"
+        android:textSize="100px"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1000px"
+        android:background="#C1F3C8"
+        android:text="게임 방법입니다."/>
+    <Button
+        android:layout_marginTop="40px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/button"
+        android:textColor="#7E4BAF"
+        android:id="@+id/Back"
+        android:textSize="100px"
+        android:background="@drawable/button"
+        android:text="처음으로"/>
+    <Button
+        android:layout_marginTop="40px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="게임시작"
+        android:textColor="#6876EA"
+        android:id="@+id/GameStart"
+        android:textSize="100px"
+        android:background="@drawable/button"/>
+</LinearLayout>
