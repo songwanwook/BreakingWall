@@ -31,6 +31,7 @@
         <activity android:name=".GameOver"/>
         <activity android:name=".Game2"/>
         <activity android:name=".Game3"/>
+        <activity android:name=".GameClear"/>
     </application>
 
 </manifest>

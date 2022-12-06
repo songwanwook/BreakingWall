@@ -22,7 +22,7 @@ public class GameClear extends Activity {
         setContentView(R.layout.gameclear);
         Intent intent = getIntent();
         score = intent.getIntExtra("score", score);
-        life = intent.getIntExtra("score", life);
+        life = intent.getIntExtra("life", life);
         MyScore = (TextView)findViewById(R.id.score);
         MyScore.setText("나의 점수는 : " + score + "점");
         MyLife = (TextView)findViewById(R.id.life);

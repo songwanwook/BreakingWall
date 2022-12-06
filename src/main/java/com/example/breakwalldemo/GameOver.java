@@ -32,13 +32,11 @@ public class GameOver extends Activity {
         button[0] = (Button)findViewById(R.id.Back);//처음으로 버튼
         button[1] = (Button)findViewById(R.id.GameStart);//다시시작 버튼
         button[0].setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {//처음으로 버튼 누를 경우
                 Intent backintent = new Intent(getApplicationContext(),Main.class);
                 startActivity(backintent);//처음 화면으로 돌아감
             }
-
         });
         button[1].setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +45,5 @@ public class GameOver extends Activity {
                 startActivity(gameintent);//게임 시작
             }
         });
-
-        /*try {
-            ending.start();
-            sleep(15000);
-        } catch (InterruptedException e) {
-            ending.stop();
-            e.printStackTrace();
-        }*/
     }
 }
