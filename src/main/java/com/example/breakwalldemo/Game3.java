@@ -16,19 +16,19 @@ public class Game3 extends Activity {
     int paddlegetWidth = 250;
     int clear = 0;
     int x = 300;
-    int ballx = 450, bally = 1260;
+    int ballx = 435, bally = 1260;
     boolean playing = false;
     int xspeed, yspeed;
-    int score, life, combo;
+    int score = 50000, life = 3, combo = 0;
     view v;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view v = new view(this);
         setContentView(v);
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         score = intent.getIntExtra("score", score);
         life = intent.getIntExtra("life", life);
-        combo = intent.getIntExtra("combo", combo);
+        combo = intent.getIntExtra("combo", combo);*/
     }
     Block [][] block;
     public class view extends View {
@@ -168,7 +168,7 @@ public class Game3 extends Activity {
         return true;
     }
     private void getSpeed(){//패들에 닿을 시에 공 속도 변화
-        if(ballx >= x + 135 && ballx <= x + 175){
+        if(ballx >= x + 135 && ballx <= x + 145){
             xspeed = 0;
         }
         else if(ballx >= x + 95 && ballx <= x + 134){
@@ -183,16 +183,16 @@ public class Game3 extends Activity {
         else if(ballx >= x - 30 && ballx <= x + 14){
             xspeed = -11;
         }
-        else if(ballx >= x + 176 && ballx <= x + 215){
+        else if(ballx >= x + 146 && ballx <= x + 185){
             xspeed = 2;
         }
-        else if(ballx >= x + 216 && ballx <= x + 255){
+        else if(ballx >= x + 186 && ballx <= x + 225){
             xspeed = 5;
         }
-        else if(ballx >= x + 256 && ballx <= x + 295){
+        else if(ballx >= x + 226 && ballx <= x + 265){
             xspeed = 8;
         }
-        else if(ballx >= x + 296 && ballx <= x+paddlegetWidth+30){
+        else if(ballx >= x + 266 && ballx <= x+paddlegetWidth+30){
             xspeed = 11;
         }
     }
@@ -211,6 +211,9 @@ public class Game3 extends Activity {
                         block[i][j].blockRect.set(2140000000, 2140000000,
                                 2140000000, 2140000000);//벽돌 안드로메다 보내기 ㅋㅋㅋㅋ
                         score += combo + 100;//콤보수에 따른 점수 추가
+                        if(bally<=blockbottom&&ballx+40>=blockleft&&ballx<=blockright){
+                            yspeed = -5;
+                        }
                         yspeed *= -1;//y축 역방향 이동
                         combo++;//콤보수 올리기
                         clear--;//클리어까지 남은 벽돌수

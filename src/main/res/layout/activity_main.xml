@@ -48,5 +48,14 @@
             android:id="@+id/GameStart"
             android:textSize="100px"
             android:background="@drawable/button"/>
+        <Button
+            android:layout_marginTop="40px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="랭킹"
+            android:textColor="#C32828"
+            android:id="@+id/Rank"
+            android:textSize="100px"
+            android:background="@drawable/button"/>
     </LinearLayout>
 </LinearLayout>

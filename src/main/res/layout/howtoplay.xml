@@ -35,6 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="250px"
             android:src="@drawable/howtoplay2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="만약 공을 놓치게 되면 화면 상단의 공의 갯수가 줄어들고, 공의 갯수가 0이 된 상태에서 놓칠 시에 게임오버 됩니다."/>
     </LinearLayout>
     <Button
         android:layout_marginTop="40px"

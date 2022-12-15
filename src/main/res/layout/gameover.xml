@@ -18,6 +18,44 @@
         android:textSize="100px"
         android:textColor="#BB95FF"
         android:id="@+id/score"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="축하합니다. 고득점 달성!"
+        android:textSize="100px"
+        android:textColor="#BB95FF"
+        android:id="@+id/congratulations"
+        android:visibility="invisible"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="100px"
+            android:textColor="#000000"
+            android:text="닉네임:"
+            android:id="@+id/text"
+            android:visibility="invisible"/>
+        <EditText
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:textSize="100px"
+            android:textColor="#000000"
+            android:id="@+id/nickname"
+            android:visibility="invisible"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button"
+            android:textColor="#A606C1"
+            android:id="@+id/Ranking"
+            android:textSize="100px"
+            android:background="@drawable/button"
+            android:visibility="invisible"
+            android:text="랭킹등록"/>
+    </LinearLayout>
     <Button
         android:layout_marginTop="40px"
         android:layout_width="match_parent"

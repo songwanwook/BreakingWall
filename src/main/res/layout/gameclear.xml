@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CONGRATULATIONS!!!"
-        android:textSize="150px"
+        android:textSize="100px"
         android:textColor="#F8EB96"/>
     <TextView
         android:layout_width="wrap_content"
@@ -31,6 +31,40 @@
         android:textSize="100px"
         android:textColor="#95EFFF"
         android:id="@+id/life"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="축하합니다. 고득점 달성!"
+        android:textSize="100px"
+        android:textColor="#BB95FF"
+        android:id="@+id/congratulations"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="100px"
+            android:textColor="#000000"
+            android:text="닉네임:"
+            android:id="@+id/text"/>
+        <EditText
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:textSize="100px"
+            android:textColor="#000000"
+            android:id="@+id/nickname"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button"
+            android:textColor="#A606C1"
+            android:id="@+id/Ranking"
+            android:textSize="100px"
+            android:background="@drawable/button"
+            android:text="랭킹등록"/>
+    </LinearLayout>
     <Button
         android:layout_marginTop="40px"
         android:layout_width="match_parent"

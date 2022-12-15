@@ -58,7 +58,6 @@ public class Game extends Activity {
             itemx = item.blockRect.left+20; itemy = item.blockRect.top;
             pistolx = 2140000000;
             pistoly = 2140000000;
-            GameClear();
         }
         public void onDraw(Canvas canvas){//벽돌깨기 UI 그리기
             Paint pnt = new Paint();//페인트 객체 설정
@@ -255,7 +254,7 @@ public class Game extends Activity {
         }, time);
     }
     private void getSpeed(){//패들에 닿을 시에 공 속도 변화
-        if(ballx >= x + 135 && ballx <= x + 175){
+        if(ballx >= x + 135 && ballx <= x + 145){
             xspeed = 0;
         }
         else if(ballx >= x + 95 && ballx <= x + 134){
@@ -270,16 +269,16 @@ public class Game extends Activity {
         else if(ballx >= x - 30 && ballx <= x + 14){
             xspeed = -11;
         }
-        else if(ballx >= x + 176 && ballx <= x + 215){
+        else if(ballx >= x + 146 && ballx <= x + 185){
             xspeed = 2;
         }
-        else if(ballx >= x + 216 && ballx <= x + 255){
+        else if(ballx >= x + 186 && ballx <= x + 225){
             xspeed = 5;
         }
-        else if(ballx >= x + 256 && ballx <= x + 295){
+        else if(ballx >= x + 226 && ballx <= x + 265){
             xspeed = 8;
         }
-        else if(ballx >= x + 296 && ballx <= x+paddlegetWidth+30){
+        else if(ballx >= x + 266 && ballx <= x+paddlegetWidth+30){
             xspeed = 11;
         }
     }
