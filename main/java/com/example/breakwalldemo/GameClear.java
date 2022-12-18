@@ -55,11 +55,11 @@ public class GameClear extends Activity {
             }
         });
         rd = new RankingDB(this);
-        button[2].setOnClickListener(new View.OnClickListener() {
+        button[2].setOnClickListener(new View.OnClickListener() {//랭킹등록 버튼을 누를 경우
             @Override
-            public void onClick(View view) {//다시시작 버튼을 누를 경우
+            public void onClick(View view) {
                 str = String.valueOf(et.getText());
-                if(str.equals(null)||str.equals("")){
+                if(str.equals(null)||str.equals("")){//공백 닉네임 상태
                     Toast.makeText(getApplicationContext(), "닉네임을 입력하세요",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -75,16 +75,12 @@ public class GameClear extends Activity {
         });
     }
     public class RankingDB extends SQLiteOpenHelper {
-
         public RankingDB(@Nullable Context context) {
             super(context, "groupDB", null, 1);
         }
-
         @Override
         public void onCreate(SQLiteDatabase db) {
-
         }
-
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
             db.execSQL("INSERT INTO RANKING VALUES('" + str

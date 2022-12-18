@@ -66,11 +66,11 @@ public class GameOver extends Activity {
             }
         });
         rd = new RankingDB(this);
-        button[2].setOnClickListener(new View.OnClickListener(){
+        button[2].setOnClickListener(new View.OnClickListener(){//랭킹등록 버튼을 누를 경우
             @Override
             public void onClick(View view) {
                 str = String.valueOf(et.getText());
-                if(str.equals(null)||str.equals("")){
+                if(str.equals(null)||str.equals("")){//공백 닉네임 상태
                     Toast.makeText(getApplicationContext(), "닉네임을 입력하세요",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -98,7 +98,6 @@ public class GameOver extends Activity {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-            //db.execSQL("INSERT INTO RANKING VALUES('SON',10000);");
             db.execSQL("INSERT INTO RANKING VALUES('" + str
                     + "', " + score + ");");
         }

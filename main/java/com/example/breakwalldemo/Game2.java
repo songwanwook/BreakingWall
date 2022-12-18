@@ -13,13 +13,18 @@ public class Game2 extends Activity {
     Bitmap ball;//공
     Bitmap lifeball;//목숨 갯수
     Bitmap bga;//배경
+    Bitmap item;
+    Bitmap gun;
+    int pistolCount;
     int paddlegetWidth = 250;
     int clear = 0;
     int x = 300;
-    int ballx = 450, bally = 1260;
+    int ballx = 435, bally = 1260;
     boolean playing = false;
     int xspeed, yspeed;
     int score, life, combo;
+    boolean ItemDown= false;//아이템이 떨어지게 하는 불리언 변수
+    boolean pistolShot = false;//총알이 발사되게 하는 불리언 변수
     view v;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,9 @@ public class Game2 extends Activity {
         combo = intent.getIntExtra("combo", combo);
     }
     Block [][] block;
+    Block Item;
+    int a = (int)(Math.random()*8);
+    int itemx, itemy, pistolx, pistoly;
     public class view extends View {
         int xstart = 30, ystart = 50;//x, y축 시작위치
         int bx, by, bwidth, bheight;
@@ -46,10 +54,16 @@ public class Game2 extends Activity {
                             continue;
                         }
                     }
+                    if(i == 4 && j == a){
+                        Item = new Block(bx, by, bwidth, bheight);//랜덤한 위치에 아이템 벽돌 생성
+                    }
                     block[i][j] = new Block(bx, by, bwidth, bheight);
                     clear++;
                 }
             }
+            itemx = Item.blockRect.left+20; itemy = Item.blockRect.top;
+            pistolx = 2140000000;
+            pistoly = 2140000000;
         }
         public void onDraw(Canvas canvas){//벽돌깨기 UI 그리기
             Paint pnt = new Paint();//페인트 객체 설정
@@ -57,7 +71,10 @@ public class Game2 extends Activity {
             canvas.drawBitmap(bga,0,0,null);
             paddle = BitmapFactory.decodeResource(getResources(),R.drawable.button1);//패들 설정
             canvas.drawBitmap(paddle,x,1300,null);
-
+            gun = BitmapFactory.decodeResource(getResources(),R.drawable.pistol);
+            canvas.drawBitmap(gun,pistolx,pistoly,null);//아이템 먹기 전 까지 총알 비활성화
+            item = BitmapFactory.decodeResource(getResources(),R.drawable.b);
+            canvas.drawBitmap(item,itemx,itemy,null);
             for( int i = 0 ; i < 8 ; i++ ) {
                 for (int j = 0; j < 9; j++) {
                     pnt.setColor(Color.GREEN);
@@ -79,7 +96,8 @@ public class Game2 extends Activity {
             canvas.drawBitmap(ball,ballx,bally,null);//벽돌 깨는 공 그리기
             invalidate();//화면 갱신
             ballHandler();//핸들러호출
-
+            itemHandler();
+            gunHandler();
             pnt.setColor(Color.BLACK);//검은 색상 설정
             pnt.setTextSize(50);//텍스트 사이즈 50
             canvas.drawText("SCORE : " + score,0,40,pnt);//점수 창
@@ -113,6 +131,47 @@ public class Game2 extends Activity {
                 }
             }
             collision();//벽돌 깨지는 함수 호출
+        }
+    }
+    private void itemHandler(){
+        int itembottom = Item.blockRect.bottom;
+        int itemleft = Item.blockRect.left;
+        int itemright = Item.blockRect.right;
+        int itemtop = Item.blockRect.top;
+        if(ballx+40>=itemleft&&ballx<=itemright&&bally<=itembottom&&bally+40>=itemtop){//아이템 벽돌 깰 시
+            ItemDown = true;//아이템 떨구기 허락
+            Item.set(2140000000,2140000000,
+                    2140000000,2140000000);//아이템 벽돌 삭제
+        }
+        if(ItemDown){//아이템 떨어지면
+            if(itemy>=1280 && itemy <= 1320 && itemx > x-20 && itemx < x + paddlegetWidth + 20){
+                itemx = 2140000000;itemy = 2140000000;//아이템 삭제
+                pistolx = x + 150; pistoly = 1280;//총알 생성
+                score += 100;
+                pistolCount =10;
+                pistolShot = true;
+            }//아이템이 패들에 닿을 경우 또는 바닥에 떨어질 경우
+            else{
+                itemy += 5;
+            }
+        }
+    }
+    private void gunHandler(){
+        if(pistolShot){//총알 발사 boolean 변수가 true일때
+            if(pistolCount > 0) {//총알이 0개 이상일때
+                pistoly -= 10;//총알 발사
+                collision();//총알 충돌 함수
+                if (pistoly <= 0) {//총알이 화면을 넘어가면
+                    pistolCount--;//총알 카운드 감소
+                    pistolx = x + 150;//총알 위치 패들 위로 갱신
+                    pistoly = 1280;
+                }
+            }
+            else{//총알이 0개
+                pistolShot = false;//총알 발사 중지
+                pistolx = 2140000000;
+                pistoly = 2140000000;//총알 제거
+            }
         }
     }
     public boolean onTouchEvent(MotionEvent event){//터치했을때(가장 중요한 기능)
@@ -149,7 +208,7 @@ public class Game2 extends Activity {
         return true;
     }
     private void getSpeed(){//패들에 닿을 시에 공 속도 변화
-        if(ballx >= x + 135 && ballx <= x + 175){
+        if(ballx >= x + 135 && ballx <= x + 145){
             xspeed = 0;
         }
         else if(ballx >= x + 95 && ballx <= x + 134){
@@ -164,16 +223,16 @@ public class Game2 extends Activity {
         else if(ballx >= x - 30 && ballx <= x + 14){
             xspeed = -11;
         }
-        else if(ballx >= x + 176 && ballx <= x + 215){
+        else if(ballx >= x + 146 && ballx <= x + 185){
             xspeed = 2;
         }
-        else if(ballx >= x + 216 && ballx <= x + 255){
+        else if(ballx >= x + 186 && ballx <= x + 225){
             xspeed = 5;
         }
-        else if(ballx >= x + 256 && ballx <= x + 295){
+        else if(ballx >= x + 226 && ballx <= x + 265){
             xspeed = 8;
         }
-        else if(ballx >= x + 296 && ballx <= x+paddlegetWidth+30){
+        else if(ballx >= x + 266 && ballx <= x+paddlegetWidth+30){
             xspeed = 11;
         }
     }
@@ -193,19 +252,33 @@ public class Game2 extends Activity {
                             block[i][j].blockRect.set(2140000000, 2140000000,
                                     2140000000, 2140000000);//벽돌 안드로메다 보내기 ㅋㅋㅋㅋ
                             score += combo + 100;//콤보수에 따른 점수 추가
+                            if(bally<=blockbottom&&ballx+40>=blockleft&&ballx<=blockright){
+                                yspeed = -5;
+                            }
                             yspeed *= -1;//y축 역방향 이동
                             combo++;//콤보수 올리기
                             clear--;//클리어까지 남은 벽돌수
                             if (clear == 0) {
-                                playing = false;
-                                score = (life + 1) * score;
-                                Intent intent = new Intent(getApplicationContext(), Game3.class);
-                                intent.putExtra("score", score);
-                                intent.putExtra("life", life);
-                                intent.putExtra("combo", combo);
-                                startActivity(intent);
+                                GameClear();
                             }
                         }
+                        if(pistoly<=blockbottom&&pistolx>=blockleft-5&&pistolx<=blockright+5) {
+                            block[i][j].blockRect.set(2140000000, 2140000000,
+                                    2140000000, 2140000000);//벽돌 안드로메다 보내기 ㅋㅋㅋㅋ
+                            if (pistolCount > 0) {//총알이 남아있을 경우
+                                pistolx = x + 150;
+                                pistoly = 1280;//총알 위치 초기화
+                                score += combo + 100;//콤보수에 따른 점수 추가
+                                pistolCount--;//총알 1개 소비
+                                combo++;//콤보수 올리기
+                                clear--;//클리어까지 남은 벽돌수
+                                GameClear();
+                            } else {//총알이 0개
+                                pistolx = 2140000000;//총알 제거
+                                pistoly = 2140000000;
+                                pistolShot = false;//총알 발사 중지
+                            }
+                        }//총알이 벽돌에 닿을때 벽돌을 깨는 코드
                     }
                 }
                 else{
@@ -217,21 +290,47 @@ public class Game2 extends Activity {
                         block[i][j].blockRect.set(2140000000, 2140000000,
                                 2140000000, 2140000000);//벽돌 안드로메다 보내기 ㅋㅋㅋㅋ
                         score += combo + 100;//콤보수에 따른 점수 추가
+                        if(bally<=blockbottom&&ballx+40>=blockleft&&ballx<=blockright){
+                            yspeed = -5;
+                        }
                         yspeed *= -1;//y축 역방향 이동
                         combo++;//콤보수 올리기
                         clear--;//클리어까지 남은 벽돌수
                         if (clear < 1) {
-                            playing = false;
-                            score = (life + 1) * score;
-                            Intent intent = new Intent(getApplicationContext(), Game3.class);
-                            intent.putExtra("score", score);
-                            intent.putExtra("life", life);
-                            intent.putExtra("combo", combo);
-                            startActivity(intent);
+                            GameClear();
                         }
                     }
+                    if(pistoly<=blockbottom&&pistolx>=blockleft-5&&pistolx<=blockright+5) {
+                        block[i][j].blockRect.set(2140000000, 2140000000,
+                                2140000000, 2140000000);//벽돌 안드로메다 보내기 ㅋㅋㅋㅋ
+                        if (pistolCount > 0) {//총알이 남아있을 경우
+                            pistolx = x + 150;
+                            pistoly = 1280;//총알 위치 초기화
+                            score += combo + 100;//콤보수에 따른 점수 추가
+                            pistolCount--;//총알 1개 소비
+                            combo++;//콤보수 올리기
+                            clear--;//클리어까지 남은 벽돌수
+                            GameClear();
+                        } else {//총알이 0개
+                            pistolx = 2140000000;//총알 제거
+                            pistoly = 2140000000;
+                            pistolShot = false;//총알 발사 중지
+                        }
+                    }//총알이 벽돌에 닿을때 벽돌을 깨는 코드
                 }
             }
+        }
+    }
+    private void GameClear(){
+        if(clear < 1) {
+            playing = false;
+            pistolShot = false;
+            score = (life + 1) * score;
+            Intent intent = new Intent(getApplicationContext(), Game3.class);
+            intent.putExtra("score", score);
+            intent.putExtra("life", life);
+            intent.putExtra("combo", combo);
+            startActivity(intent);
         }
     }
     private void play(long time){//플레잉 핸들러
