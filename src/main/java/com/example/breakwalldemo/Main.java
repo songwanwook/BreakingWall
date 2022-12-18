@@ -24,7 +24,7 @@ public class Main extends AppCompatActivity {
         button[1].setOnClickListener(new View.OnClickListener() {//게임시작 버튼을 누르면
             @Override
             public void onClick(View view) {//게임으로 넘어간다.
-                Intent intent = new Intent(getApplicationContext(), Game3.class);
+                Intent intent = new Intent(getApplicationContext(), Game.class);
                 startActivity(intent);
             }
         });

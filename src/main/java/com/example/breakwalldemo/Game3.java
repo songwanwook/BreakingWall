@@ -19,16 +19,16 @@ public class Game3 extends Activity {
     int ballx = 435, bally = 1260;
     boolean playing = false;
     int xspeed, yspeed;
-    int score = 50000, life = 3, combo = 0;
+    int score, life, combo;
     view v;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view v = new view(this);
         setContentView(v);
-        /*Intent intent = getIntent();
+        Intent intent = getIntent();
         score = intent.getIntExtra("score", score);
         life = intent.getIntExtra("life", life);
-        combo = intent.getIntExtra("combo", combo);*/
+        combo = intent.getIntExtra("combo", combo);
     }
     Block [][] block;
     public class view extends View {
